@@ -60,3 +60,9 @@
 - [x] Armazenar 28 imagens finais do catálogo em URLs permanentes
 - [x] Substituir os cinco assets de referência por recortes finais sem preço sobreposto
 - [x] Validar a API pública local retornando os produtos e preços cadastrados
+
+- [ ] Configurar as variáveis SUPABASE_URL, SUPABASE_SERVICE_ROLE_KEY, JWT_SECRET, ADMIN_USERNAME e ADMIN_PASSWORD no projeto Vercel correto e redeployar
+- [ ] Validar catálogo e login ADM no domínio Vercel após o redeploy
+
+- [ ] Corrigir erro de build TypeScript em `server/_core/storageProxy.ts`: `Property 'get' does not exist on type 'Express'` observado no deployment da Vercel.
+- [ ] Redeployar após a correção e validar catálogo público e login administrativo em produção.
