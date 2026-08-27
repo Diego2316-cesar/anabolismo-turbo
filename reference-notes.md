@@ -33,3 +33,11 @@ Após configurar `SUPABASE_URL` e `SUPABASE_SERVICE_ROLE_KEY` como variáveis do
 ## Painel administrativo e segurança
 
 A validação visual confirmou que o painel carrega com a identidade Catálogo Medicamentos, navegação separada para Produtos, Categorias e Segurança, logotipo transparente e formulário de troca de senha. O painel usa sessão administrativa própria quando autenticado; o catálogo público permanece separado na rota `/`.
+
+## Diagnóstico do domínio Vercel
+
+Acessando `https://anabolismo-turbo-blush.vercel.app/`, a resposta pública exibiu texto iniciado por `// server/_core/index.ts`, ou seja, o bundle do servidor foi servido como conteúdo da página em vez do frontend. Isso indica configuração incorreta de build/saída na Vercel. A correção adiciona `vercel.json` com saída `dist/public`, rewrites de SPA e função `api/index.ts` para o Express.
+
+## Diagnóstico após publicação
+
+Em 27/08/2026, o domínio `anabolismo-turbo-blush.vercel.app` continuou retornando `content-type: application/javascript` e conteúdo iniciado por `server/_core/index.ts`. A integração Vercel da tarefa reportou a equipe Hobby `diego2316-cesars-projects` sem projetos Git vinculados e `list_projects` retornou zero projetos; consultar esse hostname retornou `Deployment not found`. Portanto, o domínio informado está em outra conta/equipe/projeto Vercel, ou não está vinculado à conta atualmente conectada, e publicar o checkpoint no projeto Manus não atualiza esse hostname.
