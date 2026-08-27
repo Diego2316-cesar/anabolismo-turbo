@@ -21,7 +21,7 @@ export type CatalogProduct = {
 };
 
 function getConfig() {
-  const url = (ENV.supabaseUrl || "https://xsveypccptxvpiygbnqv.supabase.co").replace(/\/+$/, "");
+  const url = ENV.supabaseUrl.replace(/\/+$/, "");
   const key = ENV.supabaseServiceRoleKey || ENV.supabaseAnonKey;
   if (!url || !key) {
     throw new Error("Supabase não configurado. Defina SUPABASE_URL e a chave pública/administrativa do projeto.");

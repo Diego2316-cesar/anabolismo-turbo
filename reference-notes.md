@@ -25,3 +25,7 @@ A tela `/admin/produtos` carregou com a lista real vazia e exibiu formulário pa
 ## Validação responsiva
 
 Em 390 px, a loja mantém busca, logotipo, menu de filtros, estado vazio e botão WhatsApp sem overflow. O painel mantém a navegação móvel, os campos do formulário e o CTA de cadastro em coluna única. A estrutura está pronta para receber as fotos reais posteriormente.
+
+## Validação oficial das variáveis
+
+Após configurar `SUPABASE_URL` e `SUPABASE_SERVICE_ROLE_KEY` como variáveis do projeto, a loja pública e o painel administrativo carregaram o estado real vazio do Supabase sem erro de configuração. O teste de conexão da chave administrativa passou, e a tela administrativa permanece pronta para cadastro.
