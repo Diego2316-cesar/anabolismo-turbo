@@ -40,7 +40,7 @@ const SIDEBAR_WIDTH_KEY = "sidebar-width";
 const DEFAULT_WIDTH = 280;
 const MIN_WIDTH = 200;
 const MAX_WIDTH = 480;
-const ADMIN_LOGO_URL = "/manus-storage/anabolismo-turbo-logo-transparent_80e1ec8b.png";
+const ADMIN_LOGO_URL = "/manus-storage/anabolismo-turbo-logo-com-fundo_fe55cd1f.png";
 
 function AdminLogin() {
   const [username, setUsername] = useState("");
@@ -91,7 +91,7 @@ export default function DashboardLayout({
     return <DashboardLayoutSkeleton />
   }
 
-  if (!user && !adminSessionQuery.data) {
+  if (!adminSessionQuery.data) {
     return <AdminLogin />;
   }
 

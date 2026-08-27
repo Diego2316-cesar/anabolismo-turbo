@@ -45,3 +45,18 @@
 - [ ] Alinhar o nome do repositório Git para anabolismo-turbo e usar esse slug na Vercel
 - [ ] Investigar e corrigir domínio Vercel implantado sem conteúdo visível
 - [ ] Confirmar build, variáveis e status da implantação pública após a correção
+
+- [ ] Diagnosticar publicação concluída sem atualização no domínio Vercel informado pelo usuário
+
+- [x] Ativar o logotipo Anabolismo Turbo com fundo visível no catálogo e no painel
+
+- [x] Remover o botão visível do painel administrativo da página inicial, mantendo a rota `/admin` protegida
+
+- [x] Usar as imagens do ZIP somente como referência e deixar as imagens finais sem preço sobreposto
+
+- [x] Corrigir entrada do painel para exigir a sessão própria do ADM, mesmo quando houver sessão de usuário Manus
+
+- [x] Importar 27 produtos com preços conferidos do PDF e categorias no Supabase
+- [x] Armazenar 28 imagens finais do catálogo em URLs permanentes
+- [x] Substituir os cinco assets de referência por recortes finais sem preço sobreposto
+- [x] Validar a API pública local retornando os produtos e preços cadastrados

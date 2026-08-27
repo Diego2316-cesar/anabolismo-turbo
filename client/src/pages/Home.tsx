@@ -15,7 +15,7 @@ import {
 } from "lucide-react";
 import { useMemo, useState } from "react";
 
-const LOGO_URL = "/manus-storage/anabolismo-turbo-logo-transparent_80e1ec8b.png";
+const LOGO_URL = "/manus-storage/anabolismo-turbo-logo-com-fundo_fe55cd1f.png";
 const WHATSAPP_NUMBER = "5519994699667";
 
 type SortOption = "category" | "lowest" | "highest" | "az" | "za";
@@ -153,13 +153,6 @@ export default function Home() {
             >
               {filtersOpen ? <X className="h-5 w-5" /> : <Menu className="h-5 w-5" />}
             </Button>
-            <Button
-              asChild
-              variant="outline"
-              className="hidden h-9 border-black/15 bg-white text-[11px] font-bold uppercase tracking-[0.16em] hover:border-[#c89518] hover:bg-[#fffaf0] sm:inline-flex"
-            >
-              <a href="/admin">Painel</a>
-            </Button>
           </div>
         </div>
       </header>
@@ -266,9 +259,6 @@ export default function Home() {
               </div>
               <h2 className="font-display text-lg font-bold uppercase tracking-[0.08em]">Nenhum produto cadastrado</h2>
               <p className="mx-auto mt-2 max-w-md text-sm leading-relaxed text-black/50">O catálogo está pronto para receber suas fotos e preços pelo painel administrativo.</p>
-              <Button asChild className="mt-6 bg-[#171717] text-[#f3c74b] hover:bg-[#c89518] hover:text-[#171717]">
-                <a href="/admin">Abrir painel administrativo</a>
-              </Button>
             </div>
           ) : (
             <div className={layout === "grid" ? "grid gap-5 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4" : "divide-y divide-black/10 border-t border-black/10"}>
