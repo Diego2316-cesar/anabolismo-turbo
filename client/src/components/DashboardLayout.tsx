@@ -19,24 +19,57 @@ import {
   SidebarTrigger,
   useSidebar,
 } from "@/components/ui/sidebar";
-import { startLogin } from "@/const";
+import { trpc } from "@/lib/trpc";
 import { useIsMobile } from "@/hooks/useMobile";
-import { Boxes, LayoutDashboard, LogOut, PanelLeft, Tags } from "lucide-react";
+import { Boxes, KeyRound, LayoutDashboard, LogOut, PanelLeft, Tags } from "lucide-react";
 import { CSSProperties, useEffect, useRef, useState } from "react";
 import { useLocation } from "wouter";
 import { DashboardLayoutSkeleton } from './DashboardLayoutSkeleton';
 import { Button } from "./ui/button";
+import { Input } from "./ui/input";
+import { Label } from "./ui/label";
 
 const menuItems = [
   { icon: LayoutDashboard, label: "Visão geral", path: "/admin" },
   { icon: Boxes, label: "Produtos", path: "/admin/produtos" },
   { icon: Tags, label: "Categorias", path: "/admin/categorias" },
+  { icon: KeyRound, label: "Segurança", path: "/admin/seguranca" },
 ];
 
 const SIDEBAR_WIDTH_KEY = "sidebar-width";
 const DEFAULT_WIDTH = 280;
 const MIN_WIDTH = 200;
 const MAX_WIDTH = 480;
+const ADMIN_LOGO_URL = "/manus-storage/anabolismo-turbo-logo-transparent_80e1ec8b.png";
+
+function AdminLogin() {
+  const [username, setUsername] = useState("");
+  const [password, setPassword] = useState("");
+  const loginMutation = trpc.admin.validate.useMutation({
+    onSuccess: () => window.location.reload(),
+  });
+
+  return (
+    <div className="flex min-h-screen items-center justify-center bg-[#111] px-4 text-white">
+      <form onSubmit={event => { event.preventDefault(); loginMutation.mutate({ username, password }); }} className="w-full max-w-md rounded-2xl border border-[#c89518]/30 bg-black p-8 shadow-2xl">
+        <div className="mb-8 flex items-center gap-3">
+          <img src={ADMIN_LOGO_URL} alt="Anabolismo Turbo" className="h-14 w-14 object-contain" />
+          <div>
+            <p className="text-[10px] font-bold uppercase tracking-[0.24em] text-[#f3c74b]">Área restrita</p>
+            <h1 className="font-display text-2xl font-black uppercase tracking-[0.06em]">Painel ADM</h1>
+          </div>
+        </div>
+        <p className="mb-6 text-sm leading-relaxed text-white/60">Use o usuário e a senha configurados para administrar o Catálogo Medicamentos.</p>
+        <div className="space-y-4">
+          <div className="space-y-2"><Label htmlFor="admin-username" className="text-white/70">Usuário</Label><Input id="admin-username" value={username} onChange={event => setUsername(event.target.value)} autoComplete="username" className="border-white/15 bg-white/5 text-white" /></div>
+          <div className="space-y-2"><Label htmlFor="admin-password" className="text-white/70">Senha</Label><Input id="admin-password" type="password" value={password} onChange={event => setPassword(event.target.value)} autoComplete="current-password" className="border-white/15 bg-white/5 text-white" /></div>
+        </div>
+        {loginMutation.error && <p className="mt-4 text-sm text-red-300">Usuário ou senha inválidos.</p>}
+        <Button type="submit" disabled={loginMutation.isPending} className="mt-6 w-full bg-[#f3c74b] text-black hover:bg-[#d5a51f]">{loginMutation.isPending ? "Entrando..." : "Entrar no painel"}</Button>
+      </form>
+    </div>
+  );
+}
 
 export default function DashboardLayout({
   children,
@@ -48,37 +81,18 @@ export default function DashboardLayout({
     return saved ? parseInt(saved, 10) : DEFAULT_WIDTH;
   });
   const { loading, user } = useAuth();
+  const adminSessionQuery = trpc.admin.me.useQuery();
 
   useEffect(() => {
     localStorage.setItem(SIDEBAR_WIDTH_KEY, sidebarWidth.toString());
   }, [sidebarWidth]);
 
-  if (loading) {
+  if (loading || adminSessionQuery.isLoading) {
     return <DashboardLayoutSkeleton />
   }
 
-  if (!user) {
-    return (
-      <div className="flex items-center justify-center min-h-screen">
-        <div className="flex flex-col items-center gap-8 p-8 max-w-md w-full">
-          <div className="flex flex-col items-center gap-6">
-            <h1 className="text-2xl font-semibold tracking-tight text-center">
-              Acesso administrativo
-            </h1>
-            <p className="text-sm text-muted-foreground text-center max-w-sm">
-              Entre para gerenciar produtos, preços e imagens do catálogo.
-            </p>
-          </div>
-          <Button
-            onClick={() => startLogin()}
-            size="lg"
-            className="w-full shadow-lg hover:shadow-xl transition-all"
-          >
-            Entrar no painel
-          </Button>
-        </div>
-      </div>
-    );
+  if (!user && !adminSessionQuery.data) {
+    return <AdminLogin />;
   }
 
   return (
@@ -106,6 +120,13 @@ function DashboardLayoutContent({
   setSidebarWidth,
 }: DashboardLayoutContentProps) {
   const { user, logout } = useAuth();
+  const adminMe = trpc.admin.me.useQuery();
+  const adminLogout = trpc.admin.logout.useMutation();
+  const handleLogout = async () => {
+    await adminLogout.mutateAsync();
+    await logout();
+    window.location.reload();
+  };
   const [location, setLocation] = useLocation();
   const { state, toggleSidebar } = useSidebar();
   const isCollapsed = state === "collapsed";
@@ -206,22 +227,22 @@ function DashboardLayoutContent({
                 <button className="flex items-center gap-3 rounded-lg px-1 py-1 hover:bg-accent/50 transition-colors w-full text-left group-data-[collapsible=icon]:justify-center focus:outline-none focus-visible:ring-2 focus-visible:ring-ring">
                   <Avatar className="h-9 w-9 border shrink-0">
                     <AvatarFallback className="text-xs font-medium">
-                      {user?.name?.charAt(0).toUpperCase()}
+                      {(user?.name ?? adminMe.data?.username ?? "A").charAt(0).toUpperCase()}
                     </AvatarFallback>
                   </Avatar>
                   <div className="flex-1 min-w-0 group-data-[collapsible=icon]:hidden">
                     <p className="text-sm font-medium truncate leading-none">
-                      {user?.name || "-"}
+                      {user?.name ?? adminMe.data?.username ?? "Administrador"}
                     </p>
                     <p className="text-xs text-muted-foreground truncate mt-1.5">
-                      {user?.email || "-"}
+                      {user?.email ?? "Acesso local do ADM"}
                     </p>
                   </div>
                 </button>
               </DropdownMenuTrigger>
               <DropdownMenuContent align="end" className="w-48">
                 <DropdownMenuItem
-                  onClick={logout}
+                  onClick={handleLogout}
                   className="cursor-pointer text-destructive focus:text-destructive"
                 >
                   <LogOut className="mr-2 h-4 w-4" />

@@ -132,3 +132,27 @@ export async function createCategory(input: { name: string; slug: string; sortOr
   }, true);
   return rows[0];
 }
+
+
+type AdminCredential = {
+  id: string;
+  username: string;
+  password_hash: string;
+  salt: string;
+  created_at: string;
+  updated_at: string;
+};
+
+export async function getAdminCredential(username: string) {
+  const rows = await supabaseRequest<AdminCredential[]>(`admin_credentials?username=eq.${encodeURIComponent(username)}&select=id,username,password_hash,salt,created_at,updated_at&limit=1`, {}, true);
+  return rows[0] ?? null;
+}
+
+export async function upsertAdminCredential(input: { username: string; passwordHash: string; salt: string }) {
+  const rows = await supabaseRequest<AdminCredential[]>("admin_credentials?on_conflict=username", {
+    method: "POST",
+    headers: { Prefer: "resolution=merge-duplicates,return=representation" },
+    body: JSON.stringify({ username: input.username, password_hash: input.passwordHash, salt: input.salt }),
+  }, true);
+  return rows[0] ?? null;
+}

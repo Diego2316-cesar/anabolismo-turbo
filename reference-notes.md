@@ -29,3 +29,7 @@ Em 390 px, a loja mantém busca, logotipo, menu de filtros, estado vazio e botã
 ## Validação oficial das variáveis
 
 Após configurar `SUPABASE_URL` e `SUPABASE_SERVICE_ROLE_KEY` como variáveis do projeto, a loja pública e o painel administrativo carregaram o estado real vazio do Supabase sem erro de configuração. O teste de conexão da chave administrativa passou, e a tela administrativa permanece pronta para cadastro.
+
+## Painel administrativo e segurança
+
+A validação visual confirmou que o painel carrega com a identidade Catálogo Medicamentos, navegação separada para Produtos, Categorias e Segurança, logotipo transparente e formulário de troca de senha. O painel usa sessão administrativa própria quando autenticado; o catálogo público permanece separado na rota `/`.

@@ -31,3 +31,14 @@
 - [x] Validar o sistema funcionando com catálogo e painel conectados
 - [ ] Entregar o link público da Vercel ou deixar a publicação pronta para a ação final na conta
 - [x] Adicionar a credencial administrativa do Supabase no ambiente seguro para habilitar gravação pelo painel
+- [x] Separar o painel administrativo em rota própria `/admin`; subdomínio Vercel permanece dependente da publicação
+- [x] Configurar autenticação administrativa com login e senha próprios
+- [ ] Configurar domínio/subdomínio Vercel sem identificador pessoal, após a publicação
+- [x] Disponibilizar logotipo com fundo transparente e aplicar na interface
+- [x] Revisar a estrutura pública contra a referência enviada
+- [x] Remover “Diego Cesar” e variações da identidade pública, metadados e documentação exibida
+- [x] Consolidar “Catálogo Medicamentos” como nome exibido
+- [x] Remover “Diego Cesar” e variações da identidade pública, metadados e documentação exibida
+- [x] Consolidar “Catálogo Medicamentos” como nome exibido
+- [x] Adicionar opção de alterar a senha do ADM dentro do painel
+- [ ] Preparar publicação Vercel gratuita e confirmar implantação real antes de entregar o link

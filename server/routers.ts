@@ -1,3 +1,4 @@
+import { TRPCError } from "@trpc/server";
 import { z } from "zod";
 import { COOKIE_NAME } from "@shared/const";
 import { getSessionCookieOptions } from "./_core/cookies";
@@ -12,6 +13,7 @@ import {
   updateProduct,
 } from "./supabase";
 import { storagePut } from "./storage";
+import { changeAdminPassword, clearAdminSession, setAdminSession, verifyAdminCredentials } from "./adminAuth";
 
 const catalogInput = z.object({
   search: z.string().trim().optional().default(""),
@@ -37,6 +39,32 @@ export const appRouter = router({
     logout: publicProcedure.mutation(({ ctx }) => {
       const cookieOptions = getSessionCookieOptions(ctx.req);
       ctx.res.clearCookie(COOKIE_NAME, { ...cookieOptions, maxAge: -1 });
+      return { success: true } as const;
+    }),
+  }),
+  admin: router({
+    me: publicProcedure.query(({ ctx }) => ctx.adminSession ? { username: ctx.adminSession.username } : null),
+    validate: publicProcedure.input(z.object({
+      username: z.string().trim().min(1).max(100),
+      password: z.string().min(1).max(200),
+    })).mutation(async ({ input, ctx }) => {
+      const valid = await verifyAdminCredentials(input.username, input.password);
+      if (!valid) throw new TRPCError({ code: "UNAUTHORIZED", message: "Usuário ou senha inválidos." });
+      setAdminSession(ctx.res, ctx.req, input.username);
+      return { valid: true } as const;
+    }),
+    logout: publicProcedure.mutation(({ ctx }) => {
+      clearAdminSession(ctx.res, ctx.req);
+      return { success: true } as const;
+    }),
+    changePassword: adminProcedure.input(z.object({
+      currentPassword: z.string().min(1).max(200),
+      newPassword: z.string().min(8).max(200),
+    })).mutation(async ({ input, ctx }) => {
+      const username = ctx.adminSession?.username;
+      if (!username) throw new TRPCError({ code: "FORBIDDEN", message: "Entre com o login próprio do ADM para trocar a senha." });
+      const changed = await changeAdminPassword(username, input.currentPassword, input.newPassword);
+      if (!changed) throw new TRPCError({ code: "UNAUTHORIZED", message: "A senha atual está incorreta." });
       return { success: true } as const;
     }),
   }),
