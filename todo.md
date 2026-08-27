@@ -43,3 +43,5 @@
 - [x] Adicionar opção de alterar a senha do ADM dentro do painel
 - [ ] Preparar publicação Vercel gratuita e confirmar implantação real antes de entregar o link
 - [ ] Alinhar o nome do repositório Git para anabolismo-turbo e usar esse slug na Vercel
+- [ ] Investigar e corrigir domínio Vercel implantado sem conteúdo visível
+- [ ] Confirmar build, variáveis e status da implantação pública após a correção

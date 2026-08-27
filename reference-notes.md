@@ -33,3 +33,7 @@ Após configurar `SUPABASE_URL` e `SUPABASE_SERVICE_ROLE_KEY` como variáveis do
 ## Painel administrativo e segurança
 
 A validação visual confirmou que o painel carrega com a identidade Catálogo Medicamentos, navegação separada para Produtos, Categorias e Segurança, logotipo transparente e formulário de troca de senha. O painel usa sessão administrativa própria quando autenticado; o catálogo público permanece separado na rota `/`.
+
+## Diagnóstico do domínio Vercel
+
+Acessando `https://anabolismo-turbo-blush.vercel.app/`, a resposta pública exibiu texto iniciado por `// server/_core/index.ts`, ou seja, o bundle do servidor foi servido como conteúdo da página em vez do frontend. Isso indica configuração incorreta de build/saída na Vercel. A correção adiciona `vercel.json` com saída `dist/public`, rewrites de SPA e função `api/index.ts` para o Express.
