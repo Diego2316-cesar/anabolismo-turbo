@@ -45,3 +45,6 @@ Em 27/08/2026, o domínio `anabolismo-turbo-blush.vercel.app` continuou retornan
 ## Evidência do painel Vercel
 
 A imagem enviada pelo usuário mostra o projeto `anabolismo-turbo` na equipe `diego2316-cesars-projects`, com deployment `Ready`, `Production`, `Current`, domínio `anabolismo-turbo.vercel.app` e source `main` no commit antigo `6864b13` (`Add admin password session and finalize branding`). O commit de correção `1ea06c4` foi enviado ao GitHub depois; a Vercel ainda não refletiu esse commit.
+
+## Configuração Vercel — sessão do navegador
+A tela de variáveis do projeto `anabolismo-turbo-` foi localizada e estava vazia. Durante o fluxo de configuração, o navegador conectado desviou para uma autenticação Google/GitHub; nenhuma variável foi alterada nesse desvio e nenhum segredo foi exposto.
