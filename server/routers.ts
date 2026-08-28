@@ -1,9 +1,9 @@
 import { TRPCError } from "@trpc/server";
 import { z } from "zod";
 import { COOKIE_NAME } from "@shared/const";
-import { getSessionCookieOptions } from "./_core/cookies";
-import { systemRouter } from "./_core/systemRouter";
-import { adminProcedure, publicProcedure, router } from "./_core/trpc";
+import { getSessionCookieOptions } from "./_core/cookies.js";
+import { systemRouter } from "./_core/systemRouter.js";
+import { adminProcedure, publicProcedure, router } from "./_core/trpc.js";
 import {
   createCategory,
   createProduct,
@@ -11,9 +11,9 @@ import {
   listCategories,
   listProducts,
   updateProduct,
-} from "./supabase";
-import { storagePut } from "./storage";
-import { changeAdminPassword, clearAdminSession, setAdminSession, verifyAdminCredentials } from "./adminAuth";
+} from "./supabase.js";
+import { storagePut } from "./storage.js";
+import { changeAdminPassword, clearAdminSession, setAdminSession, verifyAdminCredentials } from "./adminAuth.js";
 
 const catalogInput = z.object({
   search: z.string().trim().optional().default(""),

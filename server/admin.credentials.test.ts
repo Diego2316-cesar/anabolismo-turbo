@@ -1,7 +1,7 @@
 import { describe, expect, it } from "vitest";
-import { appRouter } from "./routers";
-import { getAdminSession } from "./adminAuth";
-import type { TrpcContext } from "./_core/context";
+import { appRouter } from "./routers.js";
+import { getAdminSession } from "./adminAuth.js";
+import type { TrpcContext } from "./_core/context.js";
 
 describe("admin credentials", () => {
   it("validates the configured admin credentials through the API procedure", async () => {

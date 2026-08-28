@@ -2,9 +2,9 @@ import { createHmac, randomBytes, scrypt as scryptCallback, timingSafeEqual } fr
 import { promisify } from "node:util";
 import { parse } from "cookie";
 import type { Request, Response } from "express";
-import { ENV } from "./_core/env";
-import { getSessionCookieOptions } from "./_core/cookies";
-import { getAdminCredential, upsertAdminCredential } from "./supabase";
+import { ENV } from "./_core/env.js";
+import { getSessionCookieOptions } from "./_core/cookies.js";
+import { getAdminCredential, upsertAdminCredential } from "./supabase.js";
 
 const scrypt = promisify(scryptCallback);
 export const ADMIN_COOKIE = "catalog_admin_session";

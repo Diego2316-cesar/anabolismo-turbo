@@ -1,5 +1,5 @@
 import { describe, expect, it } from "vitest";
-import { sortProducts } from "./routers";
+import { sortProducts } from "./routers.js";
 
 type TestProduct = {
   id: string;

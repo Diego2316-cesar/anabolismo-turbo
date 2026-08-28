@@ -66,3 +66,5 @@
 
 - [x] Corrigir erro de build TypeScript em `server/_core/storageProxy.ts`: `Property 'get' does not exist on type 'Express'` observado no deployment da Vercel.
 - [ ] Redeployar após a correção e validar catálogo público e login administrativo em produção.
+
+- [x] Corrigir `FUNCTION_INVOCATION_FAILED` em produção: o bundle de `api/index.ts` mantém imports relativos sem extensão e o Node ESM não encontra `server/_core/oauth` em `/var/task`.
