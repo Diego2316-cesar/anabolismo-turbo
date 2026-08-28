@@ -79,3 +79,5 @@
 
 - [ ] Adicionar botão de compartilhar na página de detalhes, com Web Share API e fallback de copiar link.
 - [ ] Padronizar a paleta do painel ADM com a identidade visual do catálogo e aplicar o novo logotipo.
+
+- [ ] Reproduzir no mobile a interação da referência: abas horizontais de categorias, ordenação acessível e lista/grade com produto clicável.

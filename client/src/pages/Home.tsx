@@ -58,7 +58,7 @@ function ProductCard({
       onClick={openProduct}
       onKeyDown={event => { if (event.key === "Enter" || event.key === " ") { event.preventDefault(); openProduct(); } }}
     >
-      <div className={isList ? "relative h-48 w-48 shrink-0 overflow-hidden bg-[#f4f4f2] sm:h-64 sm:w-64" : "relative aspect-square overflow-hidden bg-[#111]"}>
+      <div className={isList ? "relative h-32 w-32 shrink-0 overflow-hidden bg-[#f4f4f2] sm:h-64 sm:w-64" : "relative aspect-square overflow-hidden bg-[#111]"}>
         {product.image_url ? (
           <img src={product.image_url} alt={product.name} className="h-full w-full object-cover transition-transform duration-500 group-hover:scale-[1.03]" />
         ) : (
@@ -151,6 +151,26 @@ export default function Home() {
         </div>
       </header>
 
+      <nav className="border-b border-black/10 bg-white md:hidden" aria-label="Categorias rápidas">
+        <div className="flex gap-7 overflow-x-auto px-5 py-4 [scrollbar-width:none] [&::-webkit-scrollbar]:hidden">
+          <button type="button" onClick={() => chooseCategory()} className={`shrink-0 border-b-2 pb-2 text-sm font-semibold uppercase tracking-[0.04em] ${!categorySlug ? "border-[#171717] text-[#171717]" : "border-transparent text-black/35"}`}>Todos</button>
+          {categories.map(category => <button type="button" key={category.id} onClick={() => chooseCategory(category.slug)} className={`shrink-0 border-b-2 pb-2 text-sm font-semibold uppercase tracking-[0.04em] ${categorySlug === category.slug ? "border-[#171717] text-[#171717]" : "border-transparent text-black/35"}`}>{category.name}</button>)}
+        </div>
+      </nav>
+
+      <div className="border-b border-black/10 bg-[#fbfbfa] px-5 py-4 md:hidden">
+        <div className="flex items-center justify-between gap-3">
+          <span className="rounded-full bg-white px-5 py-3 text-sm font-bold uppercase tracking-[0.04em] text-[#7eb1e8] shadow-[0_5px_18px_rgba(0,0,0,0.05)]">{activeCategoryName}</span>
+          <div className="flex items-center gap-2">
+            <label className="sr-only" htmlFor="mobile-sort">Ordenar por</label>
+            <select id="mobile-sort" value={sort} onChange={event => setSort(event.target.value as SortOption)} className="h-11 max-w-[140px] rounded-full border-0 bg-white px-4 text-xs font-semibold uppercase tracking-[0.04em] text-black/65 shadow-[0_5px_18px_rgba(0,0,0,0.05)] outline-none">
+              <option value="category">Ordenar por</option><option value="lowest">Menor preço</option><option value="highest">Maior preço</option><option value="az">A-Z</option><option value="za">Z-A</option>
+            </select>
+            <button type="button" onClick={() => setLayout(current => current === "list" ? "grid" : "list")} aria-label={layout === "list" ? "Visualização em grade" : "Visualização em lista"} className="flex h-11 w-11 items-center justify-center rounded-full bg-white text-black/65 shadow-[0_5px_18px_rgba(0,0,0,0.05)]">{layout === "list" ? <List className="h-5 w-5" /> : <Grid2X2 className="h-5 w-5" />}</button>
+          </div>
+        </div>
+      </div>
+
       <div className="mx-auto flex max-w-[1440px]">
         <aside
           className={`${filtersOpen ? "block" : "hidden"} fixed inset-x-0 top-[74px] z-20 max-h-[calc(100vh-74px)] overflow-y-auto border-b border-black/10 bg-white px-5 pb-5 md:sticky md:top-[74px] md:block md:h-[calc(100vh-74px)] md:w-[250px] md:shrink-0 md:border-b-0 md:border-r md:px-7 md:py-7`}
@@ -203,7 +223,7 @@ export default function Home() {
         </aside>
 
         <main className="min-w-0 flex-1 px-4 py-6 sm:px-7 sm:py-8">
-          <div className="mb-6 flex flex-wrap items-end justify-between gap-4 border-b border-black/10 pb-5">
+          <div className="mb-6 hidden flex-wrap items-end justify-between gap-4 border-b border-black/10 pb-5 md:flex">
             <div>
               <p className="mb-2 text-[10px] font-bold uppercase tracking-[0.25em] text-[#c89518]">Anabolismo Turbo</p>
               <h1 className="font-display text-2xl font-black uppercase tracking-[0.06em] sm:text-3xl">{activeCategoryName}</h1>
