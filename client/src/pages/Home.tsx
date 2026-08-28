@@ -15,7 +15,7 @@ import {
 } from "lucide-react";
 import { useMemo, useState } from "react";
 
-const LOGO_URL = "/manus-storage/anabolismo-turbo-logo-com-fundo_fe55cd1f.png";
+const LOGO_URL = "https://xsveypccptxvpiygbnqv.supabase.co/storage/v1/object/public/catalog-images/anabolismo-turbo-logo-com-fundo.png";
 const WHATSAPP_NUMBER = "5519994699667";
 
 type SortOption = "category" | "lowest" | "highest" | "az" | "za";

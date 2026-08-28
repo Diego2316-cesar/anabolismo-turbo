@@ -70,3 +70,5 @@
 - [ ] Corrigir `FUNCTION_INVOCATION_FAILED` em produção: o bundle de `api/index.ts` mantém imports relativos sem extensão e o Node ESM não encontra `server/_core/oauth` em `/var/task` (correção commitada no GitHub; aguardando validação do novo deployment).
 
 - [ ] Corrigir imagens quebradas no catálogo público e no painel ADM: os dados e preços carregam, mas as URLs de imagem não renderizam em produção.
+
+- [ ] Atualizar o design do catálogo público e do painel ADM usando o novo logotipo fornecido, com identidade visual Anabolismo Turbo / Catálogo Medicamentos.

@@ -9,7 +9,7 @@ import { FormEvent, useMemo, useRef, useState } from "react";
 import { useLocation } from "wouter";
 import { toast } from "sonner";
 
-const LOGO_URL = "/manus-storage/anabolismo-turbo-logo-com-fundo_fe55cd1f.png";
+const LOGO_URL = "https://xsveypccptxvpiygbnqv.supabase.co/storage/v1/object/public/catalog-images/anabolismo-turbo-logo-com-fundo.png";
 
 function formatPrice(priceCents: number) {
   return new Intl.NumberFormat("pt-BR", { style: "currency", currency: "BRL" }).format(priceCents / 100);
