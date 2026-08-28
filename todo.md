@@ -68,3 +68,5 @@
 - [ ] Redeployar após a correção e validar catálogo público e login administrativo em produção.
 
 - [ ] Corrigir `FUNCTION_INVOCATION_FAILED` em produção: o bundle de `api/index.ts` mantém imports relativos sem extensão e o Node ESM não encontra `server/_core/oauth` em `/var/task` (correção commitada no GitHub; aguardando validação do novo deployment).
+
+- [ ] Corrigir imagens quebradas no catálogo público e no painel ADM: os dados e preços carregam, mas as URLs de imagem não renderizam em produção.
