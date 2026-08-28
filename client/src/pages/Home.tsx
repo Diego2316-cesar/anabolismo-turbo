@@ -14,8 +14,9 @@ import {
   X,
 } from "lucide-react";
 import { useMemo, useState } from "react";
+import { useLocation } from "wouter";
 
-const LOGO_URL = "https://xsveypccptxvpiygbnqv.supabase.co/storage/v1/object/public/catalog-images/anabolismo-turbo-logo-com-fundo.png";
+const LOGO_URL = "https://xsveypccptxvpiygbnqv.supabase.co/storage/v1/object/public/catalog-images/anabolismo-turbo-logo-novo.png";
 const WHATSAPP_NUMBER = "5519994699667";
 
 type SortOption = "category" | "lowest" | "highest" | "az" | "za";
@@ -40,42 +41,35 @@ function ProductCard({
   };
   layout: LayoutOption;
 }) {
+  const [, setLocation] = useLocation();
   const isList = layout === "list";
+  const openProduct = () => setLocation(`/produto/${product.id}`);
 
   return (
     <article
       className={
         isList
-          ? "group flex items-center gap-5 border-b border-black/10 bg-white px-3 py-5 transition-colors hover:bg-black/[0.02]"
-          : "group overflow-hidden rounded-[2px] border border-black/10 bg-white transition-all duration-200 hover:-translate-y-0.5 hover:border-[#c89518] hover:shadow-[0_14px_35px_rgba(0,0,0,0.12)]"
+          ? "group flex cursor-pointer items-center gap-5 border-b border-black/10 bg-white px-0 py-5 transition-colors hover:bg-black/[0.02] focus-within:bg-black/[0.02]"
+          : "group cursor-pointer overflow-hidden rounded-[2px] border border-black/10 bg-white transition-all duration-200 hover:-translate-y-0.5 hover:border-[#c89518] hover:shadow-[0_14px_35px_rgba(0,0,0,0.12)]"
       }
-      title={product.name}
+      title={`Abrir ${product.name}`}
+      role="link"
+      tabIndex={0}
+      onClick={openProduct}
+      onKeyDown={event => { if (event.key === "Enter" || event.key === " ") { event.preventDefault(); openProduct(); } }}
     >
-      <div
-        className={
-          isList
-            ? "relative h-24 w-24 shrink-0 overflow-hidden rounded-sm bg-[#111] sm:h-28 sm:w-28"
-            : "relative aspect-square overflow-hidden bg-[#111]"
-        }
-      >
+      <div className={isList ? "relative h-48 w-48 shrink-0 overflow-hidden bg-[#f4f4f2] sm:h-64 sm:w-64" : "relative aspect-square overflow-hidden bg-[#111]"}>
         {product.image_url ? (
-          <img
-            src={product.image_url}
-            alt={product.name}
-            className="h-full w-full object-cover transition-transform duration-500 group-hover:scale-[1.03]"
-          />
+          <img src={product.image_url} alt={product.name} className="h-full w-full object-cover transition-transform duration-500 group-hover:scale-[1.03]" />
         ) : (
-          <div className="flex h-full w-full items-center justify-center bg-[radial-gradient(circle_at_center,#343434_0,#111_65%)] px-4 text-center text-[10px] font-semibold uppercase tracking-[0.22em] text-white/50">
-            Foto do produto
-          </div>
+          <div className="flex h-full w-full items-center justify-center bg-[radial-gradient(circle_at_center,#343434_0,#111_65%)] px-4 text-center text-[10px] font-semibold uppercase tracking-[0.22em] text-white/50">Foto do produto</div>
         )}
-        <div className="absolute bottom-3 left-3 rounded-sm bg-black/90 px-3 py-1.5 text-base font-bold tracking-tight text-[#f3c74b] shadow-lg">
-          {formatPrice(product.price_cents)}
-        </div>
+        {!isList && <div className="absolute bottom-3 left-3 rounded-sm bg-black/90 px-3 py-1.5 text-base font-bold tracking-tight text-[#f3c74b] shadow-lg">{formatPrice(product.price_cents)}</div>}
       </div>
-      <div className={isList ? "min-w-0" : "sr-only"}>
-        <h3 className="truncate text-sm font-semibold text-[#171717]">{product.name}</h3>
-        <p className="mt-1 text-xs uppercase tracking-[0.16em] text-black/45">Catálogo Medicamentos</p>
+      <div className={isList ? "min-w-0 flex-1 py-2 pr-4" : "sr-only"}>
+        <h3 className="text-base font-semibold leading-snug text-[#171717] sm:text-lg">{product.name}</h3>
+        <p className="mt-2 text-xs text-black/45">Catálogo Medicamentos</p>
+        <p className="mt-3 text-xl font-semibold text-[#7eb1e8] sm:text-2xl">{formatPrice(product.price_cents)}</p>
       </div>
     </article>
   );
@@ -100,7 +94,7 @@ export default function Home() {
   const [search, setSearch] = useState("");
   const [categorySlug, setCategorySlug] = useState<string | undefined>();
   const [sort, setSort] = useState<SortOption>("category");
-  const [layout, setLayout] = useState<LayoutOption>("grid");
+  const [layout, setLayout] = useState<LayoutOption>("list");
   const [filtersOpen, setFiltersOpen] = useState(false);
 
   const catalogQuery = trpc.catalog.list.useQuery({

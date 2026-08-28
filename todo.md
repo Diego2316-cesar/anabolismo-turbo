@@ -72,3 +72,10 @@
 - [ ] Corrigir imagens quebradas no catálogo público e no painel ADM: os dados e preços carregam, mas as URLs de imagem não renderizam em produção.
 
 - [ ] Atualizar o design do catálogo público e do painel ADM usando o novo logotipo fornecido, com identidade visual Anabolismo Turbo / Catálogo Medicamentos.
+
+- [ ] Tornar os cartões clicáveis e criar detalhe individual do produto com foto, nome, preço e CTA de WhatsApp.
+
+- [ ] Comparar e alinhar a interface pública ao máximo com `https://medical-brasil.catalog.kyte.site/`, incluindo cabeçalho, filtros, grade, cartões, tipografia, espaçamento e responsividade.
+
+- [ ] Adicionar botão de compartilhar na página de detalhes, com Web Share API e fallback de copiar link.
+- [ ] Padronizar a paleta do painel ADM com a identidade visual do catálogo e aplicar o novo logotipo.

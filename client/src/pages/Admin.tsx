@@ -9,7 +9,7 @@ import { FormEvent, useMemo, useRef, useState } from "react";
 import { useLocation } from "wouter";
 import { toast } from "sonner";
 
-const LOGO_URL = "https://xsveypccptxvpiygbnqv.supabase.co/storage/v1/object/public/catalog-images/anabolismo-turbo-logo-com-fundo.png";
+const LOGO_URL = "https://xsveypccptxvpiygbnqv.supabase.co/storage/v1/object/public/catalog-images/anabolismo-turbo-logo-novo.png";
 
 function formatPrice(priceCents: number) {
   return new Intl.NumberFormat("pt-BR", { style: "currency", currency: "BRL" }).format(priceCents / 100);
@@ -288,7 +288,7 @@ export default function Admin() {
       <div className="mx-auto max-w-[1280px] space-y-7">
         <header className="flex flex-wrap items-center justify-between gap-4 border-b border-black/10 pb-6">
           <div className="flex items-center gap-3">
-            <img src={LOGO_URL} alt="Anabolismo Turbo" className="h-12 w-12 rounded-full object-cover ring-1 ring-black/10" />
+            <img src={LOGO_URL} alt="Anabolismo Turbo" className="h-14 w-24 object-contain" />
             <div><p className="text-[10px] font-bold uppercase tracking-[0.22em] text-[#b17d0d]">Painel administrativo</p><h1 className="font-display text-2xl font-black uppercase tracking-[0.06em]">Catálogo Medicamentos</h1></div>
           </div>
           <Button variant="outline" onClick={() => setLocation("/")}>Ver catálogo público</Button>

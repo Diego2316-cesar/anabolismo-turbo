@@ -40,7 +40,7 @@ const SIDEBAR_WIDTH_KEY = "sidebar-width";
 const DEFAULT_WIDTH = 280;
 const MIN_WIDTH = 200;
 const MAX_WIDTH = 480;
-const ADMIN_LOGO_URL = "/manus-storage/anabolismo-turbo-logo-com-fundo_fe55cd1f.png";
+const ADMIN_LOGO_URL = "https://xsveypccptxvpiygbnqv.supabase.co/storage/v1/object/public/catalog-images/anabolismo-turbo-logo-novo.png";
 
 function AdminLogin() {
   const [username, setUsername] = useState("");
@@ -176,21 +176,21 @@ function DashboardLayoutContent({
       <div className="relative" ref={sidebarRef}>
         <Sidebar
           collapsible="icon"
-          className="border-r-0"
+          className="border-r-0 bg-[#171717] text-white [&_[data-sidebar=sidebar-gap]]:bg-[#171717] [&_[data-sidebar=sidebar-header]]:border-white/10 [&_[data-sidebar=sidebar-footer]]:border-white/10 [&_[data-sidebar=menu-button]]:text-white/65 [&_[data-sidebar=menu-button]:hover]:bg-white/10 [&_[data-sidebar=menu-button]:hover]:text-white [&_[data-sidebar=menu-button][data-active=true]]:bg-[#f3c74b] [&_[data-sidebar=menu-button][data-active=true]]:text-[#171717] [&_[data-sidebar=menu-button][data-active=true]_svg]:text-[#171717] [&_[data-sidebar=menu-button]_svg]:text-white/60"
           disableTransition={isResizing}
         >
           <SidebarHeader className="h-16 justify-center">
             <div className="flex items-center gap-3 px-2 transition-all w-full">
               <button
                 onClick={toggleSidebar}
-                className="h-8 w-8 flex items-center justify-center hover:bg-accent rounded-lg transition-colors focus:outline-none focus-visible:ring-2 focus-visible:ring-ring shrink-0"
+                className="flex h-8 w-8 shrink-0 items-center justify-center rounded-lg text-white/70 transition-colors hover:bg-white/10 hover:text-white focus:outline-none focus-visible:ring-2 focus-visible:ring-[#f3c74b]"
                 aria-label="Toggle navigation"
               >
                 <PanelLeft className="h-4 w-4 text-muted-foreground" />
               </button>
               {!isCollapsed ? (
                 <div className="flex items-center gap-2 min-w-0">
-                  <span className="font-semibold tracking-tight truncate">
+                  <span className="truncate font-semibold tracking-tight text-white">
                     Catálogo Medicamentos
                   </span>
                 </div>
@@ -277,7 +277,7 @@ function DashboardLayoutContent({
             </div>
           </div>
         )}
-        <main className="flex-1 p-4">{children}</main>
+        <main className="min-h-screen flex-1 bg-[#f7f7f5] p-4 text-[#171717] sm:p-7">{children}</main>
       </SidebarInset>
     </>
   );
